@@ -10,8 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.blue, .white]), 
-                           startPoint: .topLeading, 
+            LinearGradient(gradient: Gradient(colors: [.blue, Color("lightBlue")]),
+                           startPoint: .topLeading,
                            endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
             
@@ -32,6 +32,16 @@ struct ContentView: View {
                         .font(.system(size: 70, weight: .medium))
                         .foregroundColor(.white)
                 }
+                .padding(.bottom, 40)
+                
+                
+                HStack(spacing: 30) {
+                    WeatherDayView(dayOfWeek: "TUE", iconName: "cloud.sun.fill", temprature: "10°")
+                    WeatherDayView(dayOfWeek: "WED", iconName: "sun.max.fill", temprature: "15°")
+                    WeatherDayView(dayOfWeek: "THU", iconName: "wind", temprature: "13°")
+                    WeatherDayView(dayOfWeek: "FRI", iconName: "sunset.fill", temprature: "17°")
+                    WeatherDayView(dayOfWeek: "SAT", iconName: "snow", temprature: "-2°")
+                }
                 
                 Spacer()
             }
@@ -41,4 +51,29 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+struct WeatherDayView: View {
+    
+    let dayOfWeek: String
+    let iconName: String
+    let temprature: String
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            Text(dayOfWeek)
+                .font(.system(size: 16, weight: .medium, design: .default))
+                .foregroundColor(.white)
+            
+            Image(systemName: iconName)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40, height: 40)
+            
+            Text(temprature)
+                .font(.system(size: 28, weight: .medium ))
+                .foregroundColor(.white)
+        }
+    }
 }
